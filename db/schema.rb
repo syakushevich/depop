@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 2023_05_25_055033) do
     t.string "size"
     t.string "brand"
     t.string "condition"
-    t.string "material"
     t.string "style"
     t.string "color"
     t.text "image_urls", default: [], array: true

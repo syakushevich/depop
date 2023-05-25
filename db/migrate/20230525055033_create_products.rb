@@ -8,7 +8,6 @@ class CreateProducts < ActiveRecord::Migration[6.1]
       t.string :size
       t.string :brand
       t.string :condition
-      t.string :material
       t.string :style
       t.string :color
       t.text :image_urls, array: true, default: []

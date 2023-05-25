@@ -1,6 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  ENV['TELEGRAM_BOT_TOKEN'] = '5984537277:AAFU5QXZEobEBbu0oZ7lkGSvXPOO9CHVowk'
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
@@ -13,7 +14,6 @@ Rails.application.configure do
 
   # Show full error reports.
   config.consider_all_requests_local = true
-
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join('tmp', 'caching-dev.txt').exist?

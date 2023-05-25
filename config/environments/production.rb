@@ -1,11 +1,11 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  ENV['TELEGRAM_BOT_TOKEN'] = '5984537277:AAFU5QXZEobEBbu0oZ7lkGSvXPOO9CHVowk'
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
   config.cache_classes = true
-
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.

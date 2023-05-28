@@ -1,6 +1,8 @@
 require 'telegram/bot'
 require 'active_record'
 
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+
 Telegram::Bot::Client.run(ENV['TELEGRAM_BOT_TOKEN']) do |bot|
   bot.listen do |message|
     case message

@@ -40,7 +40,7 @@ class Parser
     image_urls = doc.css('div[class*="styles__Desktop"] img').map { |img| img['src'] }
 
     # Price logic
-    parced_price = doc.css('div[class*="ProductDetailsStickystyles__Wrapper"] p[class*="Pricestyles__FullPrice"]').text.strip
+    parced_price = doc.css('div[class*="ProductDetailsStickystyles__Wrapper"] p[class*="Pricestyles__FullPrice"]').text.strip.to_i
     price = increase_price(parced_price).to_i
 
     # Description logic

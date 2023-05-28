@@ -31,17 +31,19 @@ class Parser
     doc = Nokogiri::HTML(html)
 
     name = doc.css('h1[class*="ProductDetailsSticky"]').text.strip
-    price = doc.css('div[class*="ProductDetailsStickystyles__Wrapper"] p[class*="Pricestyles__FullPrice"]').text.strip
     country = doc.css('div[class*="styles__StyledBio"] p[class*="styles__Location"]').text.strip
-
-    image_urls = doc.css('div[class*="styles__Desktop"] img').map { |img| img['src'] }
-
     size = doc.css('div[class*="styles__Details"] tr[data-testid="product__singleSize"] td').text.strip
     brand = doc.css('div[class*="styles__Details"] a').text.strip
     condition = doc.css('div[class*="styles__Details"] td[data-testid="product__condition"]').text.strip
     style = doc.css('div[class*="styles__Details"] tr[data-testid="product__style"] td').text.strip
     color = doc.css('div[class*="styles__Details"] td[data-testid="product__colour"]').text.strip
+    image_urls = doc.css('div[class*="styles__Desktop"] img').map { |img| img['src'] }
 
+    # Price logic
+    parced_price = doc.css('div[class*="ProductDetailsStickystyles__Wrapper"] p[class*="Pricestyles__FullPrice"]').text.strip
+    price = increase_price(parced_price).to_i
+
+    # Description logic
     parsed_description = doc.css('p[data-testid="product__description"][class*="styles__Container"]').text.strip
     description = generate_description(parsed_description)
 
@@ -54,5 +56,12 @@ class Parser
     client = OpenAI::Client.new
     response = client.chat(parameters: { model: "gpt-3.5-turbo", messages: [{ role: "user", content: prompt}], temperature: 0.7 })
     response.dig('choices', 0, 'message', 'content')
+  end
+
+  def increase_price(price)
+    increase_by_value = price + 10
+    increase_by_percent = price * 1.10
+
+    (increase_by_value > increase_by_percent) ? increase_by_value : increase_by_percent
   end
 end

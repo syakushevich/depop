@@ -27,16 +27,7 @@ Telegram::Bot::Client.run(ENV['TELEGRAM_BOT_TOKEN']) do |bot|
       else
         url = message.text
         product = Parser.parse(url)
-        bot.api.send_message(chat_id: message.chat.id, text: "Product created!\n
-                                                              Name: #{product.name}\n
-                                                              Price: #{product.price}\n
-                                                              Size: #{product.size}\n
-                                                              Country: #{product.country}\n
-                                                              Brand: #{product.brand}\n
-                                                              Color: #{product.color}\n
-                                                              Condition: #{product.condition}\n
-                                                              Images: #{product.image_urls}\n
-                                                              Description: #{product.description}")
+        bot.api.send_message(chat_id: message.chat.id, text: "Product created!\nName: #{product.name}\nPrice: #{product.price}\nSize: #{product.size}\nCountry: #{product.country}\nBrand: #{product.brand}\nColor: #{product.color}\nCondition: #{product.condition}\nImages: #{product.image_urls}\nDescription: #{product.description}")
       end
     end
   end

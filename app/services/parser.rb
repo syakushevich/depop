@@ -41,13 +41,13 @@ class Parser
 
     # Price logic
     parced_price = doc.css('div[class*="ProductDetailsStickystyles__Wrapper"] p[class*="Pricestyles__FullPrice"]').text.strip
-    price = increase_price(parced_price).to_i
+    price = increase_price(parced_price)
 
     # Description logic
     parsed_description = doc.css('p[data-testid="product__description"][class*="styles__Container"]').text.strip
     description = generate_description(parsed_description)
 
-    @product = Product.create(name: name, price: price, country: country, size: size, brand: brand, description: description,
+    @product = Product.create(name: name, price: price, link: url, store: 1, country: country, size: size, brand: brand, description: description,
                               condition: condition, style: style, color: color, image_urls: image_urls)
   end
 
@@ -59,10 +59,11 @@ class Parser
   end
 
   def increase_price(price)
-    price = price.gsub("£", "").to_f
-    increase_by_value = price + 10
-    increase_by_percent = price * 1.10
+    currency_symbol = price[0]
+    amount = price[1..-1].to_f
+    increase_by_value = amount + 10
+    increase_by_percent = amount * 1.10
 
-    (increase_by_value > increase_by_percent) ? increase_by_value : increase_by_percent
+    (increase_by_value > increase_by_percent) ? "#{currency_symbol}#{increase_by_value}" : "#{currency_symbol}#{increase_by_percent}"
   end
 end
